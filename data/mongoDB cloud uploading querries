@@ -1,0 +1,6 @@
+mongoimport --host cluster0-shard-00-01-hvt3i.gcp.mongodb.net:27017 --ssl -u username -p 'password' --authenticationDatabase admin --db freeway --collection highways --drop --file edited_highways.csv --type csv –headerline
+mongoimport --host cluster0-shard-00-01-hvt3i.gcp.mongodb.net:27017 --ssl -u username -p 'password' --authenticationDatabase admin --db freeway --collection stations --drop --file edited_stations.csv --type csv –headerline
+mongoimport --host cluster0-shard-00-01-hvt3i.gcp.mongodb.net:27017 --ssl -u username -p 'password' --authenticationDatabase admin --db freeway --collection loop --drop --file edited_loop.csv --type csv –headerline
+mongoimport --host cluster0-shard-00-01-hvt3i.gcp.mongodb.net:27017 --ssl -u username -p 'password' --authenticationDatabase admin --db freeway --collection detectors --drop --file edited_detectors.csv --type csv –headerline
+
+

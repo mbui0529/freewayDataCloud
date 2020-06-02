@@ -1,0 +1,70 @@
+drop table if exists stations;
+drop table if exists detectors;
+drop table if exists loop;
+drop table if exists highways;
+
+create table stations(
+stationid integer primary key,
+highwayid integer not null,
+milepost float not null,
+locationtext text not null,
+upstream integer not null,
+downstream integer not null,
+stationclass integer not null,
+numberlanes integer not null,
+latlon text not null,
+length float not null);
+
+create table detector(
+detectorid integer primary key,
+highwayid integer not null,
+milepost float not null,
+locationtext text not null,
+detectorclass integer not null,
+numberlanes integer not null,
+stationid integer not null
+);
+
+create table loop(
+detectorid integer not null,
+starttime text not null,
+volume integer,
+speed integer,
+occupancy integer,
+status integer,
+dqflags integer);
+
+create table highways(
+highwayid integer not null,
+shortdirection text not null,
+direction text not null,
+highwayname text not null);
+
+.mode csv
+.import freeway_stations.csv stations
+.import freeway_highways.csv highways
+.import freeway_loopdata_OneHour.csv loop
+.import freeway_detectors.csv detectors
+
+.output edited_loop.csv
+
+select * from loop join
+    (select detectorid, S.locationtext, H.highwayname, S.length
+    from detector D join highway H on D.highwayid = H.highwayid
+    join stations S on D.stationid = S.stationid) as B
+on loop.detectorid = B.detectorid;
+
+.output edited_stations.csv
+
+select S.stationid,S.highwayid,S.milepost,S.locationtext,S.upstream,S.downstream,
+        S.stationclass,S.numberlanes,S.latlon,S.length, H.highwayname
+from stations S join highways H on S.highwayid = H.highwayid;
+
+.output edited_highways.csv
+
+select * from highways;
+
+.output edited_detectors.csv
+
+select detectorid,milepost,detectorclass,numberlanes,stationid
+from detectors;
