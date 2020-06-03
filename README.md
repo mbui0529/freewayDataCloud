@@ -26,8 +26,8 @@ Python programs are used to answer the questions.
 * mongoDB installed
 
 2. Execution
-* run sqlite querries in data folder.
-* run mongoDB uploading in data folder.
+* run sqlite queries in data folder.
+* run mongoDB uploading queries in data folder.
 * execute python programs.
 
 PS: When working with mongoDB cloud, use your own username and password.
