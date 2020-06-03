@@ -40,19 +40,23 @@ shortdirection text not null,
 direction text not null,
 highwayname text not null);
 
+.headers on
 .mode csv
 .import freeway_stations.csv stations
 .import freeway_highways.csv highways
 .import freeway_loopdata_OneHour.csv loop
+.import freeway_loopdata.csv loop
 .import freeway_detectors.csv detectors
 
 .output edited_loop.csv
 
-select * from loop join
+select L.detectorid,starttime,volume,speed,occupancy,status,dqflags,locationtext,highwayname,length
+from loop L
+join
     (select detectorid, S.locationtext, H.highwayname, S.length
     from detector D join highway H on D.highwayid = H.highwayid
     join stations S on D.stationid = S.stationid) as B
-on loop.detectorid = B.detectorid;
+on L.detectorid = B.detectorid;
 
 .output edited_stations.csv
 
