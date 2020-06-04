@@ -6,9 +6,9 @@ from connectmongo import freeway,loop,stations
 import re
 import time
 
+# hyper parameter
 date = '2011-09-22'
 location = 'Foster NB'
-
 start_time_am = '07:00:00'
 end_time_am = '09:00:00'
 start_time_pm = '16:00:00'
@@ -16,6 +16,7 @@ end_time_pm = '18:00:00'
 time_string = ['7-9AM','4-6PM']
 average_travel_speed = {}
 
+# timer starts
 start = time.time()
 
 # Get length from stations because stations collection is much smaller than loop:
@@ -41,11 +42,12 @@ average_travel_foster_find= loop.aggregate(pipe)
 for d in average_travel_foster_find:
     average_travel_speed['4-6PM'] = d['average_speed']  # mph
 
-end = time.time()
+end = time.time()  # timer ends
 
 print ("Question 4:")
 for t in time_string:
     if t in average_travel_speed:
+        # calculate average travel time for each
         result = round(street_length / average_travel_speed[t] * 3600, 2)
         print_string = 'Travel time for {}: {} seconds'.format(t, result)
         print(print_string)

@@ -74,22 +74,4 @@ def round_up_five_minutes(time_string):
         min = "0" + str(min)
     return "{}{}".format(hour,min)
 
-def convert_string(string):
-    if not string:
-        return 0
-    else:
-        return int(string)
-
-"""
-date = '9/15/11'
-foo = five_minutes_intervals_one_day(date)
-for f in foo:
-    print(f)
-
-A = ['1','2','3','4']
-
-foo = split_list_into_chunks(A,2,['A','B'])
-for f in foo:
-    print (foo[f])
-"""
 #print (round_up_five_minutes('A B C 00:01:00-00'))
