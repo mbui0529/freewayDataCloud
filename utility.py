@@ -63,11 +63,11 @@ def split_list_into_chunks(list,chunksize,label = []):
 def round_up_five_minutes(time_string):
     """
     round up time to 5 min intervals
-    :param time_string: format 00:00
-    :return:
+    :param time_string: format 00:00:00-00
+    :return: 00:00:00
     """
-    hour = time_string[:-2]
-    min = int(time_string[-2:])
+    hour = time_string[:-8]
+    min = int(time_string[-8:-6])
     mod = min % 5
     min = min - mod
     if min < 10:
@@ -91,6 +91,5 @@ A = ['1','2','3','4']
 foo = split_list_into_chunks(A,2,['A','B'])
 for f in foo:
     print (foo[f])
-
-print (round_up_five_minutes('A B C 10:11'))
 """
+#print (round_up_five_minutes('A B C 00:01:00-00'))
