@@ -25,5 +25,5 @@ print(collection_names)
 
 # Input collection
 freeway = client['freeway']
-loop = freeway['loop_one_hour']
+loop = freeway['loop']
 stations = freeway['stations']
