@@ -3,11 +3,13 @@
 """
 from utility import round_up_five_minutes
 from connectmongo import loop, stations
+import time
 import re
 
 location = 'Foster NB'
 date = '2011-09-22'
-pat = re.compile(r'{}'.format(date),re.I)
+start = time.time()
+pat = re.compile(r'{}'.format(date),re.I)  # regex
 
 # Get length from stations because stations collection is much smaller than loop:
 street_length_find = stations.find({'locationtext':location},{'length':1})
@@ -21,13 +23,14 @@ speed_list = {}
 speed_count = {}
 
 for d in speed_in_one_day:
-    time = round_up_five_minutes(d['starttime'])
+    t = round_up_five_minutes(d['starttime'])
     if d['speed'] or d['speed'] == 0:
-        if time not in speed_list:
-            speed_list[time] = 0
-            speed_count[time] = 0
-        speed_list[time] += int(d['speed'])
-        speed_count[time] += 1
+        if t not in speed_list:
+            speed_list[t] = 0
+            speed_count[t] = 0
+        speed_list[t] += int(d['speed'])
+        speed_count[t] += 1
+end = time.time()
 
 print ("Question 3:")
 for s in speed_list:
@@ -38,5 +41,7 @@ for s in speed_list:
     else:
         result = ''
     print("Average travel time at {} is {} second(s)".format(s,result))
+
+#print("Execution time: {}".format(end-start))
 
 print("\n")

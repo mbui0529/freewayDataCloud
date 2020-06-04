@@ -4,6 +4,7 @@ on September 22, 2011 for the Foster NB. Report travel time in minutes.
 """
 from connectmongo import freeway,loop,stations
 import re
+import time
 
 date = '2011-09-22'
 location = 'Foster NB'
@@ -14,6 +15,8 @@ start_time_pm = '16:00:00'
 end_time_pm = '18:00:00'
 time_string = ['7-9AM','4-6PM']
 average_travel_speed = {}
+
+start = time.time()
 
 # Get length from stations because stations collection is much smaller than loop:
 street_length_find = stations.find({'locationtext':location},{'length':1})
@@ -38,6 +41,8 @@ average_travel_foster_find= loop.aggregate(pipe)
 for d in average_travel_foster_find:
     average_travel_speed['4-6PM'] = d['average_speed']  # mph
 
+end = time.time()
+
 print ("Question 4:")
 for t in time_string:
     if t in average_travel_speed:
@@ -47,4 +52,4 @@ for t in time_string:
     else:
         print('Result Not Found')
 
-
+#print("Execution time: {}".format(end-start))
